@@ -36,16 +36,24 @@ exports.handler = async function (event, context) {
                 value: `<@${userInfo.id}> (${userInfo.username}#${userInfo.discriminator})`
             },
             {
-                name: "Why were you banned?",
-                value: payload.banReason.slice(0, MAX_EMBED_FIELD_CHARS)
+                name: "What's Your Name",
+                value: payload.Name.slice(0, MAX_EMBED_FIELD_CHARS)
             },
             {
-                name: "Why do you feel you should be unbanned?",
-                value: payload.appealText.slice(0, MAX_EMBED_FIELD_CHARS)
+                name: "Why Were You Banned",
+                value: payload.banned.slice(0, MAX_EMBED_FIELD_CHARS)
+            },
+            {
+                name: "Why Should We Unban You",
+                value: payload.Unban.slice(0, MAX_EMBED_FIELD_CHARS)
             },
             {
                 name: "What will you do to avoid being banned in the future?",
                 value: payload.futureActions.slice(0, MAX_EMBED_FIELD_CHARS)
+            },
+            {
+                name: "What Is Your Discord Name",
+                value: payload.DiscordName.slice(0, MAX_EMBED_FIELD_CHARS)
             }
         ];
 
