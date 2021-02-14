@@ -17,20 +17,16 @@ exports.handler = async function (event, context) {
 
         const params = new URLSearchParams(event.body);
         payload = {
-            Name: params.get("Name") || undefined,
-            banned: params.get("banned") || undefined,
-            Unban: params.get("Unban") || undefined,
+            banReason: params.get("banReason") || undefined,
+            appealText: params.get("appealText") || undefined,
             futureActions: params.get("futureActions") || undefined,
-            DiscordName: params.get("DiscordName") || undefined,
             token: params.get("token") || undefined
         };
     }
 
-    if (payload.Name !== undefined &&
-        payload.banned !== undefined &&
-        payload.unban !== undefined && 
+    if (payload.banReason !== undefined &&
+        payload.appealText !== undefined &&
         payload.futureActions !== undefined && 
-        payload.DiscordName !== undefined && 
         payload.token !== undefined) {
         
         const userInfo = decodeJwt(payload.token);
@@ -40,24 +36,16 @@ exports.handler = async function (event, context) {
                 value: `<@${userInfo.id}> (${userInfo.username}#${userInfo.discriminator})`
             },
             {
-                name: "What's Your Name",
-                value: payload.Name.slice(0, MAX_EMBED_FIELD_CHARS)
+                name: "Why were you banned?",
+                value: payload.banReason.slice(0, MAX_EMBED_FIELD_CHARS)
             },
             {
-                name: "Why Were You Banned",
-                value: payload.banned.slice(0, MAX_EMBED_FIELD_CHARS)
-            },
-            {
-                name: "Why Should We Unban You",
-                value: payload.Unban.slice(0, MAX_EMBED_FIELD_CHARS)
+                name: "Why do you feel you should be unbanned?",
+                value: payload.appealText.slice(0, MAX_EMBED_FIELD_CHARS)
             },
             {
                 name: "What will you do to avoid being banned in the future?",
                 value: payload.futureActions.slice(0, MAX_EMBED_FIELD_CHARS)
-            },
-            {
-                name: "What Is Your Discord Name",
-                value: payload.DiscordName.slice(0, MAX_EMBED_FIELD_CHARS)
             }
         ];
 
