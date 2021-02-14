@@ -17,16 +17,20 @@ exports.handler = async function (event, context) {
 
         const params = new URLSearchParams(event.body);
         payload = {
-            banReason: params.get("banReason") || undefined,
-            appealText: params.get("appealText") || undefined,
+            Name: params.get("Name") || undefined,
+            banned: params.get("banned") || undefined,
+            Unban: params.get("Unban") || undefined,
             futureActions: params.get("futureActions") || undefined,
+            DiscordName: params.get("DiscordName") || undefined,
             token: params.get("token") || undefined
         };
     }
 
-    if (payload.banReason !== undefined &&
-        payload.appealText !== undefined &&
+    if (payload.Name !== undefined &&
+        payload.banned !== undefined &&
+        payload.unban !== undefined && 
         payload.futureActions !== undefined && 
+        payload.DiscordName !== undefined && 
         payload.token !== undefined) {
         
         const userInfo = decodeJwt(payload.token);
